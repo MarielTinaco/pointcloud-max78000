@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+*.off
+*.DS_Store
+*.txt
+*.png
+assets/depthmap_data/DepthMap_TOF.zip
+assets/depthmap_data.zip
+assets/ModelNet10/DepthMap.zip
