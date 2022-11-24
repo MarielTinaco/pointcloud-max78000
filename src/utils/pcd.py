@@ -1,11 +1,54 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from torch import rand
 import trimesh
 import os 
 import open3d as o3d
 import cv2
 import math
 import glob
+from PIL import Image, ImageFilter
+import random
+
+
+def blur(img):
+    blurred = img.filter(ImageFilter.GaussianBlur)
+    
+    blurred = blurred.filter(ImageFilter.BoxBlur(radius=2))
+    return blurred
+
+def h_flip(img):
+    flipped = img.transpose(Image.FLIP_LEFT_RIGHT)
+    return flipped
+
+def rotate_90(img):
+    rotated = img.transpose(Image.ROTATE_90)
+    return rotated
+
+def rand_augment(img):
+    augmented = Image.fromarray(np.asarray(img))
+    augmented = augmented.convert("L")
+
+    # choose 2 from rotate,flip, and blur
+    # 0: blur   1: flip horizontal     2: rotate 90
+    choices = np.arange(0,3,1)
+    random.shuffle(choices)
+
+    picks = choices[0:2]
+    
+    print('Augment Picks:  ', picks)
+
+    for pick in picks:
+        if pick == 0:
+            augmented = blur(augmented)
+        elif pick == 1:
+            augmented = h_flip(augmented)
+        elif pick == 2:
+            augmented = rotate_90(augmented)
+    
+    return augmented
+
+
 
 if __name__ == "__main__":
     
@@ -60,6 +103,12 @@ if __name__ == "__main__":
                 depth = vis.capture_depth_float_buffer(True)
                 image = vis.capture_screen_float_buffer(True)
                 
+               
+                augmented_depth = rand_augment(depth)
+                print(name)
+                plt.imsave(target_path+name+'_augment.png', np.asarray(augmented_depth), dpi=1, cmap='gray')
+                plt.close()
+
                 # plt.imsave(target_path+name+'.png', np.asarray(depth), dpi=1, cmap='gray')
                 # plt.close()
                 vis.remove_geometry(pcd)
