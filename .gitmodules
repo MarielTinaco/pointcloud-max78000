@@ -1,3 +1,6 @@
 [submodule "training"]
 	path = training
 	url = https://github.com/MaximIntegratedAI/ai8x-training
+[submodule "synthesis"]
+	path = synthesis
+	url = https://github.com/MaximIntegratedAI/ai8x-synthesis.git
