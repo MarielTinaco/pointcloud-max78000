@@ -62,7 +62,7 @@ if __name__ == "__main__":
 
     for f in folders:
         for s in subtype:
-            target_path = os.getcwd()+'/assets/ModelNet10/DepthMap/'+f+s
+            target_path = os.getcwd()+'/assets/ModelNet10/DepthMap/'+s+f+'/'
 
             if os.path.exists(target_path) == False:
                 print('Creating Folder:   ',target_path)
@@ -106,11 +106,12 @@ if __name__ == "__main__":
                
                 augmented_depth = rand_augment(depth)
                 print(name)
+                
                 plt.imsave(target_path+name+'_augment.png', np.asarray(augmented_depth), dpi=1, cmap='gray')
                 plt.close()
 
-                # plt.imsave(target_path+name+'.png', np.asarray(depth), dpi=1, cmap='gray')
-                # plt.close()
+                plt.imsave(target_path+name+'.png', np.asarray(depth), dpi=1, cmap='gray')
+                plt.close()
                 vis.remove_geometry(pcd)
 
                 

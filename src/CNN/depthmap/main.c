@@ -53,7 +53,22 @@ void fail(void)
 }
 
 // Data input: CHW 1x128x128 (16384 bytes):
-static const uint32_t input_0[] = SAMPLE_INPUT_0;
+static const uint32_t input[10][] = {
+  SAMPLE_INPUT_0,
+  SAMPLE_INPUT_1,
+  SAMPLE_INPUT_2,
+  SAMPLE_INPUT_3,
+  SAMPLE_INPUT_4,
+  SAMPLE_INPUT_5,
+  SAMPLE_INPUT_6,
+  SAMPLE_INPUT_7,
+  SAMPLE_INPUT_8,
+  SAMPLE_INPUT_9,
+  
+}
+
+static const uint32_t input_0 = input[0]
+
 void load_input(void)
 {
   // This function loads the sample data input -- replace with actual data
@@ -70,7 +85,6 @@ void load_input(void)
 
 // Expected output of layer 13 for depthmap given the sample input (known-answer test)
 // Delete this function for production code
-static const uint32_t sample_output[] = SAMPLE_OUTPUT;
 int check_output(void)
 {
   int i;
