@@ -53,21 +53,40 @@ void fail(void)
 }
 
 // Data input: CHW 1x128x128 (16384 bytes):
-static const uint32_t input[10][] = {
-  SAMPLE_INPUT_0,
-  SAMPLE_INPUT_1,
-  SAMPLE_INPUT_2,
-  SAMPLE_INPUT_3,
-  SAMPLE_INPUT_4,
-  SAMPLE_INPUT_5,
-  SAMPLE_INPUT_6,
-  SAMPLE_INPUT_7,
-  SAMPLE_INPUT_8,
-  SAMPLE_INPUT_9,
-  
+static const uint32_t bathtub[SAMPLE_SIZE_bathtub][4096] =  SAMPLE_INPUT_bathtub
+
+static const uint32_t bed[SAMPLE_SIZE_bed][4096] =  SAMPLE_INPUT_bed
+
+static const uint32_t chair[SAMPLE_SIZE_chair][4096] =  SAMPLE_INPUT_chair
+
+static const uint32_t desk[SAMPLE_SIZE_desk][4096] =  SAMPLE_INPUT_desk
+
+static const uint32_t dresser[SAMPLE_SIZE_dresser][4096] =  SAMPLE_INPUT_dresser
+
+static const uint32_t monitor[SAMPLE_SIZE_monitor][4096] =  SAMPLE_INPUT_monitor
+
+static const uint32_t nightstand[SAMPLE_SIZE_night_stand][4096] =  SAMPLE_INPUT__night_stand
+
+static const uint32_t sofa[SAMPLE_SIZE_sofa][4096] =  SAMPLE_INPUT_sofa
+
+static const uint32_t table[SAMPLE_SIZE_table][4096] =  SAMPLE_INPUT_table
+
+static const uint32_t toilet[SAMPLE_SIZE_toilet][4096] =  SAMPLE_INPUT_toilet
+
+static const uint32_t *input = {
+  bathtub,
+  bed,
+  chair,
+  desk,
+  dresser,
+  monitor,
+  nightstand,
+  sofa,
+  table,
+  toilet
 }
 
-static const uint32_t input_0 = input[0]
+static const uint32_t input_0 = input[0][0]
 
 void load_input(void)
 {

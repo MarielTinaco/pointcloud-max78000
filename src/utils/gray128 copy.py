@@ -11,7 +11,7 @@ SOURCES = [os.getcwd()+'/assets/DepthMap_PCD/DepthMap/test',
 for SRC in SOURCES:
 	subtypes = os.listdir(SRC)
 	for s in subtypes:
-		with open(os.getcwd()+'/src/CNN/depthmap/sampledata_'+str(s)+'.h', 'w') as outfile:
+		with open(os.getcwd()+'/src/CNN/depthmap/sampledata_'+str(s)+'.h', 'w+') as outfile:
 			fnames = os.listdir(SRC+'/'+s)
 
 			indices = np.arange(0,len(fnames),1)
@@ -20,7 +20,9 @@ for SRC in SOURCES:
 				chosen = indices[0:20]
 			except:
 				chosen = indices
-		
+
+			
+			out_arr_result = []
 			for ix,val in enumerate(chosen):
 				#Write out data to the header file
 				im = Image.open(SRC+'/'+s+'/'+fnames[val])
@@ -49,8 +51,8 @@ for SRC in SOURCES:
 						new_img.append(storage)
 						storage = []
 
+				
 				arr_result = []
-
 				for array in new_img:
 					first = int(array[3]) & 0xFF
 					second = int(array[2]) & 0xFF
@@ -58,32 +60,48 @@ for SRC in SOURCES:
 					fourth = int(array[0]) & 0xFF
 
 					result = first | second << 8 | third << 16 | fourth << 24
-
-					arr_result.append(result)    
-
-				out_arr_result = np.asarray(arr_result, dtype=np.uint32)
-
+	
+					arr_result.append(result)  
 			
-				outfile.write('#define SAMPLE_INPUT_'+str(ix)+' { \\')
-				outfile.write('\n')
+				out_arr_result.append(np.asarray(arr_result, dtype=np.uint32))
+			
+		
+			out_arr_len =np.shape(out_arr_result)[0]
 
-				for i in range(len(out_arr_result)):
+			print(np.shape(out_arr_result))
+			input()
+			outfile.write('#define SAMPLE_INPUT_'+str(s)+' { \\')
+			outfile.write('\n')
+
+			for nsamp in range(out_arr_len):
+				for i in range(len(out_arr_result[nsamp])):
 					if i==0:
-						outfile.write('\t0x{0:08x},\t'.format((out_arr_result[i])))
+						outfile.write('\n')
+						outfile.write('{')
+						outfile.write('\n')
+						outfile.write('\t0x{0:08x},\t'.format((out_arr_result[nsamp][i])))
 
 					else :
 						d = i%8
 						if(d!=0):
-							outfile.write('0x{0:08x},\t'.format((out_arr_result[i])))
+							outfile.write('0x{0:08x},\t'.format((out_arr_result[nsamp][i])))
 						else:
 							outfile.write('\\')
 							outfile.write('\n\t')
-							outfile.write('0x{0:08x},\t'.format((out_arr_result[i])))
+							outfile.write('0x{0:08x},\t'.format((out_arr_result[nsamp][i])))
 
-				outfile.write('\\')			
-				outfile.write('\n')
-				outfile.write('}')
-				outfile.write('\n')
+					if i == len(out_arr_result[nsamp])-1:
+						outfile.write('\n')
+						outfile.write('},')
+
+			outfile.write('\\')			
+			outfile.write('\n')
+			outfile.write('}')
+			outfile.write('\n')
+			outfile.write('\n')
+			outfile.write('#define SAMPLE_SIZE_'+str(s)+' '+str(out_arr_len))
+			outfile.write('\n')
 
 			sys.stdout.close()
+			
 
