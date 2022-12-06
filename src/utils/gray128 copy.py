@@ -71,7 +71,6 @@ for SRC in SOURCES:
 			out_arr_len =np.shape(out_arr_result)[0]
 
 			outfile.write('#define SAMPLE_INPUT_'+str(s)+' { \\')
-			outfile.write('\n')
 
 			for nsamp in range(out_arr_len):
 				for i in range(len(out_arr_result[nsamp])):
@@ -95,8 +94,7 @@ for SRC in SOURCES:
 						outfile.write('\n')
 						outfile.write('},')
 						outfile.write('\\')
-
-			outfile.write('\\')			
+		
 			outfile.write('\n')
 			outfile.write('}')
 			outfile.write('\n')
