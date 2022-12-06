@@ -65,11 +65,11 @@ for SRC in SOURCES:
 			
 				out_arr_result.append(np.asarray(arr_result, dtype=np.uint32))
 			
-		
+			# print(s)
+			# print(out_arr_result[0])
+			# input()
 			out_arr_len =np.shape(out_arr_result)[0]
 
-			print(np.shape(out_arr_result))
-			input()
 			outfile.write('#define SAMPLE_INPUT_'+str(s)+' { \\')
 			outfile.write('\n')
 
