@@ -77,7 +77,7 @@ for SRC in SOURCES:
 				for i in range(len(out_arr_result[nsamp])):
 					if i==0:
 						outfile.write('\n')
-						outfile.write('{')
+						outfile.write('{ \\')
 						outfile.write('\n')
 						outfile.write('\t0x{0:08x},\t'.format((out_arr_result[nsamp][i])))
 
@@ -91,8 +91,10 @@ for SRC in SOURCES:
 							outfile.write('0x{0:08x},\t'.format((out_arr_result[nsamp][i])))
 
 					if i == len(out_arr_result[nsamp])-1:
+						outfile.write('\\')
 						outfile.write('\n')
 						outfile.write('},')
+						outfile.write('\\')
 
 			outfile.write('\\')			
 			outfile.write('\n')
