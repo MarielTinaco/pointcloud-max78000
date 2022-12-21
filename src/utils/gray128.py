@@ -3,7 +3,6 @@ import numpy as np
 import os
 import sys
 import cv2
-import random
 
 SOURCES = [os.getcwd()+'/assets/DepthMap_PCD/DepthMap/test',
 			os.getcwd()+'/assets/DepthMap_TOF/DepthMap/train']
@@ -15,7 +14,7 @@ for SRC in SOURCES:
 			fnames = os.listdir(SRC+'/'+s)
 
 			indices = np.arange(0,len(fnames),1)
-			random.shuffle(indices)
+			np.random.shuffle(indices)
 			try:
 				chosen = indices[0:20]
 			except:
@@ -63,7 +62,8 @@ for SRC in SOURCES:
 
 				out_arr_result = np.asarray(arr_result, dtype=np.uint32)
 
-			
+				outfile.write('#'+str(fnames[val]))
+				outfile.write('\n')
 				outfile.write('#define SAMPLE_INPUT_'+str(ix)+' { \\')
 				outfile.write('\n')
 

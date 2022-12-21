@@ -84,7 +84,7 @@ if __name__ == "__main__":
         fname = [(os.path.split(i)[1]).split('.')[0] for i in filelist]
 
         indices = np.arange(0,len(fname),1)
-        random.shuffle(indices)
+        np.random.shuffle(indices)
 
         train_i = indices[:int(len(indices)*0.7)]  # TRAIN indices
         test_i = indices[int(len(indices)*0.7):]   # TEST  indices

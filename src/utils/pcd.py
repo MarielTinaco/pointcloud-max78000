@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from torch import rand
 import trimesh
 import os 
-import open3d as o3d
+import open3d.visualization as o3d
 import cv2
 import math
 import glob
@@ -32,7 +32,7 @@ def rand_augment(img):
     # choose 2 from rotate,flip, and blur
     # 0: blur   1: flip horizontal     2: rotate 90
     choices = np.arange(0,3,1)
-    random.shuffle(choices)
+    np.random.shuffle(choices)
 
     picks = choices[0:2]
     
@@ -57,8 +57,9 @@ if __name__ == "__main__":
     folders = os.listdir(soruce_path)
     subtype = ['/test/','/train/']
 
-    vis = o3d.visualization.Visualizer()
-    vis.create_window("PCD", 1200, 1200)
+    
+    vis = o3d.Visualizer()
+    vis.("PCD", 1200, 1200)
 
     for f in folders:
         for s in subtype:
